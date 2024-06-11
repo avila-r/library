@@ -1,4 +1,4 @@
-package com.avila.router
+package com.avila.library.router
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*

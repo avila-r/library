@@ -1,6 +1,6 @@
-package com.avila
+package com.avila.api
 
-import com.avila.router.configRouting
+import com.avila.api.router.configRouting
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*

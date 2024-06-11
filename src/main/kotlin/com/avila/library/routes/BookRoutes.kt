@@ -1,4 +1,4 @@
-package com.avila.domain.book
+package com.avila.api.routes
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
