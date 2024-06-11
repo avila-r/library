@@ -1,28 +1,30 @@
-package com.avila.library.router
+/**
+ * Handlers for routing configurations related to book domain in the library application.
+ */
+package com.avila.library.handler
 
 /*
  * Import book domain routes
  */
-import com.avila.library.routes.getBooksRoutes
-import com.avila.library.routes.listBooksRoute
-import com.avila.library.routes.postBooksRoute
-import com.avila.library.routes.updateBooksRoute
+import com.avila.library.routes.*
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
-fun Application.router() {
+/**
+ * Configures routing for book domain endpoints in the application.
+ */
+fun Application.handler() {
     routing {
 
         /*
          * Enable book domain routes
          */
         route("/api/v1/books") {
-            listBooksRoute()
-            getBooksRoutes()
-            postBooksRoute()
-            updateBooksRoute()
+            allBooksRoutes()
         }
+
+        // Additional routes can be configured here for other domain endpoints
 
     }
 }

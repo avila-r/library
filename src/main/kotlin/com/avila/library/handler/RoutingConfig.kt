@@ -1,4 +1,4 @@
-package com.avila.library.router
+package com.avila.library.handler
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
@@ -15,6 +15,6 @@ fun Application.configRouting() {
     /*
      * Enable API router
      */
-    router()
+    handler()
 
 }
