@@ -1,6 +1,7 @@
-package com.avila.api
+package com.avila.library
 
-import com.avila.api.router.configRouting
+import com.avila.library.handler.configRouting
+
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -12,6 +13,9 @@ fun main() {
         host = "0.0.0.0",
         module = Application::module
     ).start(wait = true)
+
+    TODO("Embedded server properties not yet implemented at application.conf")
+
 }
 
 fun Application.module() {
