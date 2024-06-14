@@ -1,11 +1,7 @@
 package com.avila.library.config
 
-import com.typesafe.config.ConfigFactory
-
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-
-import io.ktor.server.config.*
 
 import org.ktorm.database.Database
 
