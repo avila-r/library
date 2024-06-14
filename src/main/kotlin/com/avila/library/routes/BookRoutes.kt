@@ -3,19 +3,21 @@
  */
 package com.avila.library.routes
 
+import com.avila.library.schemas.BookRequest
 import com.avila.library.schemas.HttpResultResponse
-import com.avila.library.services.BookServiceImpl
+import com.avila.library.services.BookService
 import com.avila.library.utils.getCustomJsonObjectMapper
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 /**
  * Service instance for book-related operations.
  */
-private val service = BookServiceImpl()
+private val service = BookService()
 
 /**
  * Custom JSON object mapper configured for book-related responses.
@@ -26,10 +28,14 @@ private val mapper = getCustomJsonObjectMapper()
  * Routes
  */
 fun Route.allBooksRoutes() {
-    listBooksRoute()
-    getBooksRoutes()
-    // postBooksRoute()
-    // updateBooksRoute()
+
+    route("/api/v1/books") {
+        listBooksRoute()
+        getBooksRoutes()
+        postBooksRoute()
+        // TODO: updateBooksRoute()
+    }
+
 }
 
 /** Route to list all books */
@@ -61,10 +67,16 @@ private fun Route.getBooksRoutes() {
 
 /** Route to add a new book */
 private fun Route.postBooksRoute() {
-    TODO("Not yet implemented")
-}
+    post {
 
-/** Route to update an existing book */
-private fun Route.updateBooksRoute() {
-    TODO("Not yet implemented")
+        val request: BookRequest = call.receive<BookRequest>()
+
+        call.respond(
+            when (service.save(request)) {
+                true -> HttpStatusCode.Created
+                false -> HttpStatusCode.UnprocessableEntity
+            }
+        )
+
+    }
 }

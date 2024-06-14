@@ -20,9 +20,7 @@ fun Application.handler() {
         /*
          * Enable book domain routes
          */
-        route("/api/v1/books") {
-            allBooksRoutes()
-        }
+        allBooksRoutes()
 
         // Additional routes can be configured here for other domain endpoints
 
