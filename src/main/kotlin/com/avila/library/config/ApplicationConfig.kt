@@ -8,8 +8,8 @@ private object ApplicationConfig {
 
     val configurator: HoconApplicationConfig = HoconApplicationConfig(ConfigFactory.load())
 
-    fun getConfigurator(): HoconApplicationConfig = configurator
+    fun getApplicationConfig(): HoconApplicationConfig = configurator
 
 }
 
-fun getConfigurator(): HoconApplicationConfig = ApplicationConfig.getConfigurator()
+fun getConfigurator(): HoconApplicationConfig = ApplicationConfig.getApplicationConfig()
