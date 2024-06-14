@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  library-api:
+    build: .
+    container_name: library-api
+    ports:
+      - '5555:5555'
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    network_mode: "host"
+  
+  db:
+    build: ./database
+    container_name: library-db
+    ports:
+      - '5432:5432'
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD", "sleep", "1"]
+      interval: 5s
+      timeout: 5s
+      retries: 1
