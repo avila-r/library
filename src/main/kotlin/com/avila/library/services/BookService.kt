@@ -13,11 +13,12 @@ import kotlinx.coroutines.withContext
 
 import org.ktorm.dsl.eq
 import org.ktorm.entity.*
+import org.slf4j.LoggerFactory
 
 /**
  * Interface defining operations for book management.
  */
-interface BookService {
+interface BookServiceContract {
     suspend fun getAll(): List<Book>
     suspend fun getById(id: Long): Book?
     suspend fun save(book: Book)
@@ -27,9 +28,11 @@ interface BookService {
 /**
  * Implementation of BookService interface for book management operations.
  */
-class BookServiceImpl : BookService {
+class BookService : BookServiceContract {
 
     private val database = getDatabase()
+
+    private val logger = LoggerFactory.getLogger("BookService")
 
     /**
      * Retrieves all books from the database.
@@ -50,7 +53,7 @@ class BookServiceImpl : BookService {
         this.runCatching {
             database.books.find { it.id eq id }
         }.onFailure {
-            TODO("Logging not yet implemented")
+            logger.error("Error while trying to get book by id: $id", it)
         }.getOrNull()
     }
 
@@ -62,9 +65,9 @@ class BookServiceImpl : BookService {
         this.runCatching {
             database.books.add(book)
         }.onSuccess {
-            TODO("Logging not yet implemented")
+            logger.info("Saved book: $book")
         }.onFailure {
-            TODO("Logging not yet implemented")
+            logger.error("Error while trying to save book: $book", it)
         }
     }
 
@@ -76,9 +79,9 @@ class BookServiceImpl : BookService {
         this.runCatching {
             database.books.removeIf { it.id eq id }
         }.onSuccess {
-            TODO("Logging not yet implemented")
+            logger.info("Book with id $id deleted")
         }.onFailure {
-            TODO("Logging not yet implemented")
+            logger.error("Error while trying to delete book by id: $id", it)
         }
     }
 
