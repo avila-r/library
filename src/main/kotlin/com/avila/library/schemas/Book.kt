@@ -1,5 +1,8 @@
 package com.avila.library.schemas
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
+
 import org.ktorm.database.Database
 import org.ktorm.entity.Entity
 import org.ktorm.entity.sequenceOf
@@ -17,23 +20,23 @@ interface Book : Entity<Book> {
     companion object : Entity.Factory<Book>()
 
     val id: Long
-    val title: String
-    val author: String
-    val isbn: String
-    val publicationDate: LocalDate
-    val publisher: String
-    val pages: Int
-    val genre: String
-    val summary: String
-    val language: String
-    val format: String
-    val coverImageUrl: String
-    val rating: Float
-    val price: BigDecimal
-    val availability: String
-    val tags: List<String>
-    val addedDate: LocalDateTime
-    val location: String
+    var title: String
+    var author: String
+    var isbn: String
+    var publicationDate: LocalDate
+    var publisher: String
+    var pages: Int
+    var genre: String
+    var summary: String
+    var language: String
+    var format: String
+    var coverImageUrl: String
+    var rating: Float
+    var price: BigDecimal
+    var availability: String
+    var tags: List<String>
+    var addedDate: LocalDateTime
+    var location: String
 }
 
 /**
@@ -138,3 +141,22 @@ object Books : Table<Book>("books") {
  * Extension property to access the sequence of books from the database.
  */
 val Database.books get() = this.sequenceOf(Books)
+
+@Serializable
+data class BookRequest (
+    val title: String,
+    val author: String,
+    val isbn: String,
+    @Contextual val publicationDate: LocalDate,
+    val publisher: String,
+    val pages: Int,
+    val genre: String,
+    val summary: String,
+    val language: String,
+    val format: String,
+    val coverImageUrl: String,
+    @Contextual val price: BigDecimal,
+    val availability: String,
+    val tags: List<String>,
+    val location: String,
+)
