@@ -1,0 +1,118 @@
+openapi: "3.0.0"
+info:
+  title: "library API"
+  description: "library API"
+  version: "1.0.0"
+servers:
+- url: "https://library"
+paths:
+  /api/v1/books:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+    post:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+        "422":
+          description: "Unprocessable Entity"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /api/v1/books/id/{id}:
+    get:
+      description: ""
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "number"
+      responses:
+        "302":
+          description: "Found"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+components:
+  schemas:
+    BigDecimal:
+      type: "object"
+      properties: {}
+    BookRequest:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+        author:
+          type: "string"
+        isbn:
+          type: "string"
+        publicationDate:
+          type: "string"
+          format: "date"
+        publisher:
+          type: "string"
+        pages:
+          type: "integer"
+          format: "int32"
+        genre:
+          type: "string"
+        summary:
+          type: "string"
+        language:
+          type: "string"
+        format:
+          type: "string"
+        coverImageUrl:
+          type: "string"
+        price:
+          $ref: "#/components/schemas/BigDecimal"
+        availability:
+          type: "string"
+        tags:
+          type: "array"
+          items:
+            type: "string"
+        location:
+          type: "string"
+      required:
+      - "title"
+      - "author"
+      - "isbn"
+      - "publicationDate"
+      - "publisher"
+      - "genre"
+      - "summary"
+      - "language"
+      - "format"
+      - "coverImageUrl"
+      - "price"
+      - "availability"
+      - "tags"
+      - "location"
